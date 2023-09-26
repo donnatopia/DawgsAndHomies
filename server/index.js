@@ -12,7 +12,7 @@ server.use(cors());
 server.use(express.json());
 
 // serving static files and generated assets in ../client/dist
-// server.use(express.static(path.join(__dirname, '../client/dist')));
+server.use(express.static(path.join(__dirname, '../client/dist')));
 
 const SERVER_PORT = process.env.SERVER_PORT || 3000;
 const SERVER_HOST = process.env.SERVER_HOST || 'localhost';
