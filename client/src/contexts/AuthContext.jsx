@@ -1,4 +1,5 @@
-import React, { createContext, useContext, useState, useEffect } from 'react';
+import React, { createContext, useContext, useState } from 'react';
+import axios from 'axios';
 
 const AuthContext = createContext();
 
@@ -7,14 +8,33 @@ export function useAuth() {
 }
 
 export function AuthProvider({ children }) {
-  const [userName, setUserName] = useState('');
-  const [userEmail, setUserEmail] = useState('');
+  const [user, setUser] = useState('')
+
+  const login = (name, email) => {
+    setUser(name);
+
+    return axios({
+      method: 'post',
+      withCredentials: true,
+      url: 'https://frontend-take-home-service.fetch.com/auth/login',
+      data: { name, email }
+    })
+  }
+
+  const logout = () => {
+    setUser('');
+
+    return axios({
+      method: 'post',
+      withCredentials: true,
+      url: 'https://frontend-take-home-service.fetch.com/auth/logout'
+    })
+  }
 
   const value = {
-    userName,
-    setUserName,
-    userEmail,
-    setUserEmail
+    user,
+    login,
+    logout
   };
 
   return (

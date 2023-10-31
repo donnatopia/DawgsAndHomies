@@ -4,26 +4,27 @@ import { useNavigate } from 'react-router-dom';
 
 const Login = () => {
   const navigate = useNavigate();
-  const { setUserName, setUserEmail } = useAuth();
+  const { login, user } = useAuth();
 
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
 
-  const handleSubmit = (e) => {
+  const handleLogin = (e) => {
     e.preventDefault();
 
-    setUserName(name);
-    setUserEmail(email);
-
-    setName('');
-    setEmail('');
-
-    navigate('/search');
+    login(name, email)
+      .then(() => {
+        console.log('Success Logging In', user)
+        navigate('/search');
+      })
+      .catch((err) => {
+        console.log('Error Logging In', err);
+      })
   }
 
   return (
     <form>
-      <h1>Login Page</h1>
+      <h1>Log In</h1>
       <div>
         <label htmlFor="name">Name</label>
         <input
@@ -46,7 +47,7 @@ const Login = () => {
           required
         />
       </div>
-      <button type="submit" onClick={ handleSubmit }>Submit</button>
+      <button type="submit" onClick={ handleLogin }>Log In</button>
     </form>
   )
 }
