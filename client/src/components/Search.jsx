@@ -9,6 +9,12 @@ const Search = () => {
   const navigate = useNavigate();
 
   const [dogs, setDogs] = useState([]);
+  const [totalResults, setTotalResults] = useState(0);
+  const [pageQuery, setPageQuery] = useState('/dogs/search');
+  const [prev, setPrev] = useState('');
+  const [next, setNext] = useState('');
+  const [pageNum, setPageNum] = useState(1);
+  const [size, setSize] = useState(25);
 
   const handleLogout = (e) => {
     e.preventDefault();
@@ -23,14 +29,34 @@ const Search = () => {
       })
   }
 
+  const handlePrev = (e) => {
+    e.preventDefault();
+    setPageNum(pageNum - 1);
+    setPageQuery(prev);
+  }
+
+  const handleNext = (e) => {
+    e.preventDefault();
+    setPageNum(pageNum + 1);
+    setPageQuery(next);
+  }
+
   useEffect(() => {
     axios({
       method: 'get',
       withCredentials: true,
-      url: 'https://frontend-take-home-service.fetch.com/dogs/search'
+      url: `https://frontend-take-home-service.fetch.com${pageQuery}`,
+      params: {
+        size: size,
+      }
     })
       .then(({ data }) => {
-        const { resultIds } = data;
+        const { resultIds, total, prev, next } = data;
+
+        setTotalResults(total);
+        setPrev(prev);
+        setNext(next);
+
         return axios({
           method: 'post',
           withCredentials: true,
@@ -44,7 +70,7 @@ const Search = () => {
       .catch((err) => {
         console.log('Error getting dogs', err);
       })
-  }, []);
+  }, [pageQuery]);
 
   return (
     <div>
@@ -57,6 +83,9 @@ const Search = () => {
           </div>
         ))}
       </div>
+      <p>Viewing {(pageNum * size) - size + 1}-{ pageNum * size } out of {totalResults}</p>
+      { prev ? <button onClick={ handlePrev }>Previous</button> : null }
+      { next ? <button onClick={ handleNext }>Next</button> : null }
     </div>
   )
 }
