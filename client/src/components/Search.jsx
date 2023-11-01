@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { Center, Flex, SimpleGrid, Box, Heading, Button, Text } from '@chakra-ui/react';
 import axios from 'axios';
 import { useAuth } from '../contexts/AuthContext.jsx';
 import { useNavigate } from 'react-router-dom';
@@ -9,6 +10,7 @@ const Search = () => {
   const navigate = useNavigate();
 
   const [dogs, setDogs] = useState([]);
+  const [allBreeds, setAllBreeds] = useState([]);
   const [totalResults, setTotalResults] = useState(0);
   const [pageQuery, setPageQuery] = useState('/dogs/search');
   const [prev, setPrev] = useState('');
@@ -39,6 +41,14 @@ const Search = () => {
     e.preventDefault();
     setPageNum(pageNum + 1);
     setPageQuery(next);
+  }
+
+  const toggleBreeds = (e) => {
+    e.preventDefault();
+  }
+
+  const toggleAge = (e) => {
+    e.preventDefault();
   }
 
   useEffect(() => {
@@ -72,21 +82,49 @@ const Search = () => {
       })
   }, [pageQuery]);
 
+  useEffect(() => {
+    axios(({
+      method: 'get',
+      withCredentials: true,
+      url: 'https://frontend-take-home-service.fetch.com/dogs/breeds',
+    }))
+      .then(({ data }) => {
+        setAllBreeds(data);
+      })
+      .catch((err) => {
+        console.log(err);
+      })
+  }, [])
+
   return (
-    <div>
-      <h1>Welcome, { user }!</h1>
-      <button onClick={ handleLogout}>Log Out</button>
-      <div>
+    <Box p={10}>
+      <Flex justify='space-between' p={2}>
+        <Heading>Fetch</Heading>
+        <Button onClick={ handleLogout}>Log Out</Button>
+      </Flex>
+      <Flex py={5} align='center' justify='center' gap={3}>
+        <Text>Displaying Friends from </Text>
+        <Button onClick={ toggleBreeds }>{ allBreeds.length } Breeds</Button>
+        <Text> and </Text>
+        <Button onClick={ toggleAge }>All Ages</Button>
+      </Flex>
+      <SimpleGrid
+        minChildWidth='250px'
+        columns={5}
+        spacing={4}
+      >
         { dogs.map((dog) => (
-          <div key={ dog.id }>
+          <Box key={ dog.id }>
             <Dog dog={ dog }/>
-          </div>
+          </Box>
         ))}
-      </div>
-      <p>Viewing {(pageNum * size) - size + 1}-{ Math.min(pageNum * size, totalResults) } out of {totalResults}</p>
-      { prev ? <button onClick={ handlePrev }>Previous</button> : null }
-      { next ? <button onClick={ handleNext }>Next</button> : null }
-    </div>
+      </SimpleGrid>
+      <Flex py={5} justify='space-between'>
+        <Button onClick={ handlePrev } isDisabled={ prev ? false : true }>Previous</Button>
+        <Text>Displaying {(pageNum * size) - size + 1}-{ Math.min(pageNum * size, totalResults) } out of {totalResults} results</Text>
+        <Button onClick={ handleNext } isDisabled={ next ? false : true }>Next</Button>
+      </Flex>
+    </Box>
   )
 }
 
