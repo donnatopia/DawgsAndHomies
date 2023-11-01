@@ -83,7 +83,7 @@ const Search = () => {
           </div>
         ))}
       </div>
-      <p>Viewing {(pageNum * size) - size + 1}-{ pageNum * size } out of {totalResults}</p>
+      <p>Viewing {(pageNum * size) - size + 1}-{ Math.min(pageNum * size, totalResults) } out of {totalResults}</p>
       { prev ? <button onClick={ handlePrev }>Previous</button> : null }
       { next ? <button onClick={ handleNext }>Next</button> : null }
     </div>
