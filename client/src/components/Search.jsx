@@ -1,16 +1,27 @@
 import React, { useState, useEffect } from 'react';
-import { Center, Flex, SimpleGrid, Box, Heading, Button, Text } from '@chakra-ui/react';
+import {
+  Center,
+  Flex,
+  SimpleGrid,
+  Box,
+  Heading,
+  Button,
+  Text
+} from '@chakra-ui/react';
 import axios from 'axios';
 import { useAuth } from '../contexts/AuthContext.jsx';
 import { useNavigate } from 'react-router-dom';
 import Dog from './Dog.jsx';
+import Filter from './Filter/index.jsx';
 
 const Search = () => {
   const { user, logout } = useAuth();
   const navigate = useNavigate();
 
+  const [allBreeds, setAllBreeds] = useState({});
+  const [filteredBreeds, setFilteredBreeds] = useState([]);
+
   const [dogs, setDogs] = useState([]);
-  const [allBreeds, setAllBreeds] = useState([]);
   const [totalResults, setTotalResults] = useState(0);
   const [pageQuery, setPageQuery] = useState('/dogs/search');
   const [prev, setPrev] = useState('');
@@ -43,21 +54,15 @@ const Search = () => {
     setPageQuery(next);
   }
 
-  const toggleBreeds = (e) => {
-    e.preventDefault();
-  }
-
-  const toggleAge = (e) => {
-    e.preventDefault();
-  }
-
   useEffect(() => {
     axios({
       method: 'get',
       withCredentials: true,
+      "Access-Control-Allow-Origin": "*",
       url: `https://frontend-take-home-service.fetch.com${pageQuery}`,
       params: {
         size: size,
+        breeds: filteredBreeds
       }
     })
       .then(({ data }) => {
@@ -80,21 +85,28 @@ const Search = () => {
       .catch((err) => {
         console.log('Error getting dogs', err);
       })
-  }, [pageQuery]);
+  }, [pageQuery, filteredBreeds]);
 
   useEffect(() => {
     axios(({
       method: 'get',
       withCredentials: true,
+      "Access-Control-Allow-Origin": "*",
       url: 'https://frontend-take-home-service.fetch.com/dogs/breeds',
     }))
       .then(({ data }) => {
-        setAllBreeds(data);
+        const breedsObj = {};
+        data.forEach((breed) => breedsObj[breed] = true);
+        setAllBreeds(breedsObj);
       })
       .catch((err) => {
         console.log(err);
       })
-  }, [])
+  }, []);
+
+  useEffect(() => {
+    setFilteredBreeds(Object.keys(allBreeds).filter((breed) => allBreeds[breed]));
+  }, [allBreeds]);
 
   return (
     <Box p={10}>
@@ -102,12 +114,11 @@ const Search = () => {
         <Heading>Fetch</Heading>
         <Button onClick={ handleLogout}>Log Out</Button>
       </Flex>
-      <Flex py={5} align='center' justify='center' gap={3}>
-        <Text>Displaying Friends from </Text>
-        <Button onClick={ toggleBreeds }>{ allBreeds.length } Breeds</Button>
-        <Text> and </Text>
-        <Button onClick={ toggleAge }>All Ages</Button>
-      </Flex>
+      <Filter
+        allBreeds={ allBreeds }
+        setAllBreeds={ setAllBreeds }
+        filteredBreeds={ filteredBreeds }
+      />
       <SimpleGrid
         minChildWidth='250px'
         columns={5}
@@ -121,7 +132,9 @@ const Search = () => {
       </SimpleGrid>
       <Flex py={5} justify='space-between'>
         <Button onClick={ handlePrev } isDisabled={ prev ? false : true }>Previous</Button>
-        <Text>Displaying {(pageNum * size) - size + 1}-{ Math.min(pageNum * size, totalResults) } out of {totalResults} results</Text>
+        <Text>
+          Displaying {(pageNum * size) - size + 1}-{ Math.min(pageNum * size, totalResults) } out of {totalResults} results
+        </Text>
         <Button onClick={ handleNext } isDisabled={ next ? false : true }>Next</Button>
       </Flex>
     </Box>
