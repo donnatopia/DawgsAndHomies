@@ -9,17 +9,16 @@ import {
   Text
 } from '@chakra-ui/react';
 import axios from 'axios';
-import { useAuth } from '../contexts/AuthContext.jsx';
+import { useAuth } from '../../contexts/AuthContext.jsx';
+import { useFilter } from '../../contexts/FilterContext.jsx';
 import { useNavigate } from 'react-router-dom';
 import Dog from './Dog.jsx';
 import Filter from './Filter/index.jsx';
 
 const Dashboard = () => {
   const { user, logout } = useAuth();
+  const { allBreeds, setAllBreeds, filteredBreeds, setFilteredBreeds } = useFilter();
   const navigate = useNavigate();
-
-  const [allBreeds, setAllBreeds] = useState(new Set());
-  const [filteredBreeds, setFilteredBreeds] = useState([]);
 
   const [dogs, setDogs] = useState([]);
   const [totalResults, setTotalResults] = useState(0);
@@ -109,11 +108,7 @@ const Dashboard = () => {
         <Heading>Fetch</Heading>
         <Button onClick={ handleLogout}>Log Out</Button>
       </Flex>
-      <Filter
-        allBreeds={ allBreeds }
-        filteredBreeds={ filteredBreeds }
-        setFilteredBreeds={ setFilteredBreeds }
-      />
+      <Filter />
       <SimpleGrid
         minChildWidth='250px'
         columns={5}
