@@ -1,8 +1,9 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   Flex,
   Wrap,
   WrapItem,
+  Input,
   Text,
   Button,
   Modal,
@@ -14,20 +15,56 @@ import {
   ModalFooter,
   useDisclosure,
 } from '@chakra-ui/react';
+import { MdCancel } from 'react-icons/md';
 
-const Filter = ({ allBreeds, setAllBreeds, filteredBreeds }) => {
+const Filter = ({ allBreeds, filteredBreeds, setFilteredBreeds }) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
+  const [inputBreed, setInputBreed] = useState('');
+  const [message, setMessage] = useState('');
 
-  const toggleBreed = (e, breed) => {
+  const addBreed = (e) => {
     e.preventDefault();
-    setAllBreeds({...allBreeds, [breed]: !allBreeds[breed]});
+
+    const currBreed = inputBreed
+      .split(' ')
+      .map((word) => {
+        let firstLetter = word[0].toUpperCase();
+        let restOfWord = word.slice(1).toLowerCase();
+        return firstLetter + restOfWord;
+      })
+      .join(' ');
+
+    if (filteredBreeds.length > 80) {
+      setMessage('Maximum Breeds Added');
+    } else if (filteredBreeds.indexOf(currBreed) !== -1) {
+      setMessage(`Already Added "${currBreed}"`);
+    } else if (allBreeds.has(currBreed)) {
+      setFilteredBreeds([...filteredBreeds, currBreed]);
+      setMessage('');
+    } else {
+      setMessage(`No Such Breed Named "${currBreed}"`);
+    }
+
+    setInputBreed('');
+  }
+
+  const deleteBreed = (e, breed) => {
+    e.preventDefault();
+    const deleteIndex = filteredBreeds.indexOf(breed);
+    const updatedFilter = filteredBreeds.slice()
+    updatedFilter.splice(deleteIndex, 1);
+    setFilteredBreeds(updatedFilter);
+
+    setMessage('');
   }
 
   return (
     <>
       <Flex py={5} align='center' justify='center' gap={3}>
         <Text>Displaying Friends from </Text>
-        <Button onClick={ onOpen }>{ filteredBreeds.length } Breeds</Button>
+        <Button onClick={ onOpen }>
+          { filteredBreeds.length === 0 ? 120 : filteredBreeds.length } Breed{ filteredBreeds.length === 1 ? null : 's' }
+        </Button>
         <Text> and </Text>
         <Button>All Ages</Button>
       </Flex>
@@ -38,21 +75,30 @@ const Filter = ({ allBreeds, setAllBreeds, filteredBreeds }) => {
           <ModalHeader>Which Dog Breeds?</ModalHeader>
           <ModalCloseButton />
           <ModalBody>
-            <Wrap>
-              { Object.keys(allBreeds).map((breed, i) => (
-                <WrapItem key={`breed-${i}`}>
-                  <Button colorScheme={ allBreeds[breed] === true ? 'blue' : 'gray'} onClick={(e) => toggleBreed(e, breed)}>
+            <Flex>
+              <Input
+                value={ inputBreed }
+                onChange={(e) => setInputBreed(e.target.value)}
+              />
+              <Button colorScheme='yellow' ml={3} onClick={addBreed}>Add</Button>
+            </Flex>
+            <Text size='xs' color='red' p={2}>{ message }</Text>
+            <Wrap px={2} pt={5}>
+              { filteredBreeds.map((breed, i) => (
+                <WrapItem key={`filtered-${i}`}>
+                  <Button
+                    varient='outline'
+                    color='teal'
+                    onClick={(e) => deleteBreed(e, breed) }
+                    rightIcon={<MdCancel />}
+                  >
                     { breed }
                   </Button>
                 </WrapItem>
               ))}
             </Wrap>
           </ModalBody>
-          <ModalFooter>
-            <Button colorScheme='yellow' mr={3} onClick={onClose}>
-              Filter
-            </Button>
-          </ModalFooter>
+          <ModalFooter></ModalFooter>
         </ModalContent>
       </Modal>
     </>

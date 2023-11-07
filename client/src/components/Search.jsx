@@ -18,7 +18,7 @@ const Search = () => {
   const { user, logout } = useAuth();
   const navigate = useNavigate();
 
-  const [allBreeds, setAllBreeds] = useState({});
+  const [allBreeds, setAllBreeds] = useState(new Set());
   const [filteredBreeds, setFilteredBreeds] = useState([]);
 
   const [dogs, setDogs] = useState([]);
@@ -75,6 +75,7 @@ const Search = () => {
         return axios({
           method: 'post',
           withCredentials: true,
+          "Access-Control-Allow-Origin": "*",
           url: 'https://frontend-take-home-service.fetch.com/dogs/',
           data: resultIds
         })
@@ -95,18 +96,12 @@ const Search = () => {
       url: 'https://frontend-take-home-service.fetch.com/dogs/breeds',
     }))
       .then(({ data }) => {
-        const breedsObj = {};
-        data.forEach((breed) => breedsObj[breed] = true);
-        setAllBreeds(breedsObj);
+        setAllBreeds(new Set(data));
       })
       .catch((err) => {
         console.log(err);
       })
   }, []);
-
-  useEffect(() => {
-    setFilteredBreeds(Object.keys(allBreeds).filter((breed) => allBreeds[breed]));
-  }, [allBreeds]);
 
   return (
     <Box p={10}>
@@ -116,8 +111,8 @@ const Search = () => {
       </Flex>
       <Filter
         allBreeds={ allBreeds }
-        setAllBreeds={ setAllBreeds }
         filteredBreeds={ filteredBreeds }
+        setFilteredBreeds={ setFilteredBreeds }
       />
       <SimpleGrid
         minChildWidth='250px'
