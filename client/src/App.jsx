@@ -4,7 +4,7 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { AuthProvider } from './contexts/AuthContext.jsx';
 import Login from './components/Login.jsx';
 import ProtectedRoute from './components/ProtectedRoute.jsx';
-import Search from './components/Search.jsx';
+import Dashboard from './components/Dashboard.jsx';
 
 const App = () => {
   return (
@@ -14,9 +14,9 @@ const App = () => {
           <Routes>
             <Route path='/' element={<Login />} />
             <Route
-              path='/search'
+              path='/dashboard'
               element={
-                <ProtectedRoute><Search /></ProtectedRoute>
+                <ProtectedRoute><Dashboard /></ProtectedRoute>
               }
             />
           </Routes>

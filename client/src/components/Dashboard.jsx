@@ -14,7 +14,7 @@ import { useNavigate } from 'react-router-dom';
 import Dog from './Dog.jsx';
 import Filter from './Filter/index.jsx';
 
-const Search = () => {
+const Dashboard = () => {
   const { user, logout } = useAuth();
   const navigate = useNavigate();
 
@@ -136,4 +136,4 @@ const Search = () => {
   )
 }
 
-export default Search;
+export default Dashboard;

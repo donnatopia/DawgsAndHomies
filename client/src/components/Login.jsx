@@ -16,7 +16,7 @@ const Login = () => {
     login(name, email)
       .then(() => {
         console.log('Success Logging In', user)
-        navigate('/search');
+        navigate('/dashboard');
       })
       .catch((err) => {
         console.log('Error Logging In', err);

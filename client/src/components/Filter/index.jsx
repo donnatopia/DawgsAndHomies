@@ -65,8 +65,6 @@ const Filter = ({ allBreeds, filteredBreeds, setFilteredBreeds }) => {
         <Button onClick={ onOpen }>
           { filteredBreeds.length === 0 ? 120 : filteredBreeds.length } Breed{ filteredBreeds.length === 1 ? null : 's' }
         </Button>
-        <Text> and </Text>
-        <Button>All Ages</Button>
       </Flex>
 
       <Modal isOpen={isOpen} onClose={onClose} size='xl'>
