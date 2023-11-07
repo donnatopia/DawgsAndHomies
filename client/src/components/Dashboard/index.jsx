@@ -12,7 +12,7 @@ import axios from 'axios';
 import { useAuth } from '../../contexts/AuthContext.jsx';
 import { useFilter } from '../../contexts/FilterContext.jsx';
 import { useNavigate } from 'react-router-dom';
-import Dog from './Dog.jsx';
+import Card from './Card/index.jsx';
 import Filter from './Filter/index.jsx';
 
 const Dashboard = () => {
@@ -116,7 +116,7 @@ const Dashboard = () => {
       >
         { dogs.map((dog) => (
           <Box key={ dog.id }>
-            <Dog dog={ dog }/>
+            <Card dog={ dog }/>
           </Box>
         ))}
       </SimpleGrid>
