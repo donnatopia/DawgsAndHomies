@@ -16,7 +16,6 @@ server.use(express.static(path.join(__dirname, '../client/dist')));
 
 // add routes
 
-
 // catch any remaining requests and reserving static assets
 // this is pages will sustain through refreshes
 server.get('/*', (req, res) => {
@@ -31,6 +30,6 @@ server.listen(SERVER_PORT, (err) => {
   if (err) {
     console.log('Error connecting server to port', err);
   } else {
-    console.log(`Server listening at http://${SERVER_HOST}:${SERVER_PORT}`)
+    console.log(`Server listening at http://${SERVER_HOST}:${SERVER_PORT}`);
   }
-})
+});

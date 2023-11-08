@@ -8,7 +8,7 @@ export function useAuth() {
 }
 
 export function AuthProvider({ children }) {
-  const [user, setUser] = useState('')
+  const [user, setUser] = useState('');
 
   const login = (name, email) => {
     setUser(name);
@@ -17,9 +17,9 @@ export function AuthProvider({ children }) {
       method: 'post',
       withCredentials: true,
       url: 'https://frontend-take-home-service.fetch.com/auth/login',
-      data: { name, email }
-    })
-  }
+      data: { name, email },
+    });
+  };
 
   const logout = () => {
     setUser('');
@@ -27,19 +27,15 @@ export function AuthProvider({ children }) {
     return axios({
       method: 'post',
       withCredentials: true,
-      url: 'https://frontend-take-home-service.fetch.com/auth/logout'
-    })
-  }
+      url: 'https://frontend-take-home-service.fetch.com/auth/logout',
+    });
+  };
 
   const value = {
     user,
     login,
-    logout
+    logout,
   };
 
-  return (
-    <AuthContext.Provider value={value}>
-      { children }
-    </AuthContext.Provider>
-  )
+  return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
 }

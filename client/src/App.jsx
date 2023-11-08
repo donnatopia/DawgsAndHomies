@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { ChakraProvider } from '@chakra-ui/react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { AuthProvider } from './contexts/AuthContext.jsx';
@@ -14,11 +14,13 @@ const App = () => {
         <FilterProvider>
           <Router>
             <Routes>
-              <Route path='/' element={<Login />} />
+              <Route path="/" element={<Login />} />
               <Route
-                path='/dashboard'
+                path="/dashboard"
                 element={
-                  <ProtectedRoute><Dashboard /></ProtectedRoute>
+                  <ProtectedRoute>
+                    <Dashboard />
+                  </ProtectedRoute>
                 }
               />
             </Routes>
@@ -26,7 +28,7 @@ const App = () => {
         </FilterProvider>
       </AuthProvider>
     </ChakraProvider>
-  )
-}
+  );
+};
 
 export default App;
