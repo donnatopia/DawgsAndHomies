@@ -18,7 +18,7 @@ import { MdCancel } from 'react-icons/md';
 import { useFilter } from '../../../contexts/FilterContext.jsx';
 
 // Helper Function
-const titleCase = (word) => (
+const titleCase = (word) =>
   word
     .split(' ')
     .map((word) => {
@@ -26,8 +26,7 @@ const titleCase = (word) => (
       let restOfWord = word.slice(1).toLowerCase();
       return firstLetter + restOfWord;
     })
-    .join(' ')
-)
+    .join(' ');
 
 // FilterBreed Component
 const FilterBreed = ({ isOpen, onClose }) => {
@@ -51,20 +50,20 @@ const FilterBreed = ({ isOpen, onClose }) => {
     }
 
     setInputBreed('');
-  }
+  };
 
   const deleteBreed = (e, breed) => {
     e.preventDefault();
     const deleteIndex = filteredBreeds.indexOf(breed);
-    const updatedFilter = filteredBreeds.slice()
+    const updatedFilter = filteredBreeds.slice();
     updatedFilter.splice(deleteIndex, 1);
     setFilteredBreeds(updatedFilter);
 
     setMessage('');
-  }
+  };
 
   return (
-    <Modal isOpen={isOpen} onClose={onClose} size='xl'>
+    <Modal isOpen={isOpen} onClose={onClose} size="xl">
       <ModalOverlay />
       <ModalContent>
         <ModalHeader>Which Dog Breeds?</ModalHeader>
@@ -72,22 +71,26 @@ const FilterBreed = ({ isOpen, onClose }) => {
         <ModalBody>
           <Flex>
             <Input
-              value={ inputBreed }
+              value={inputBreed}
               onChange={(e) => setInputBreed(e.target.value)}
             />
-            <Button colorScheme='yellow' ml={3} onClick={addBreed}>Add</Button>
+            <Button colorScheme="yellow" ml={3} onClick={addBreed}>
+              Add
+            </Button>
           </Flex>
-          <Text size='xs' color='red' p={2}>{ message }</Text>
+          <Text size="xs" color="red" p={2}>
+            {message}
+          </Text>
           <Wrap px={2} pt={5}>
-            { filteredBreeds.map((breed, i) => (
+            {filteredBreeds.map((breed, i) => (
               <WrapItem key={`filtered-${i}`}>
                 <Button
-                  varient='outline'
-                  color='teal'
-                  onClick={(e) => deleteBreed(e, breed) }
+                  varient="outline"
+                  color="teal"
+                  onClick={(e) => deleteBreed(e, breed)}
                   rightIcon={<MdCancel />}
                 >
-                  { breed }
+                  {breed}
                 </Button>
               </WrapItem>
             ))}
@@ -96,8 +99,7 @@ const FilterBreed = ({ isOpen, onClose }) => {
         <ModalFooter></ModalFooter>
       </ModalContent>
     </Modal>
-  )
-}
-
+  );
+};
 
 export default FilterBreed;

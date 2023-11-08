@@ -8,18 +8,26 @@ const Dog = ({ dog }) => {
     <Card>
       <CardBody>
         <Image
-          src={ img }
-          boxSize='300px'
-          objectFit='cover'
-          borderRadius='20px'
+          src={img}
+          boxSize="300px"
+          objectFit="cover"
+          borderRadius="20px"
         />
-        <Heading fontSize='lg' pt='4' textTransform='uppercase'>{ name }</Heading>
-        <Text py='2' fontSize='md' textTransform='uppercase'>{ breed }</Text>
-        <Text fontSize='xs' textTransform='uppercase'>{ age } years old</Text>
-        <Text fontSize='xs' textTransform='uppercase'>Located in { zip_code }</Text>
+        <Heading fontSize="lg" pt="4" textTransform="uppercase">
+          {name}
+        </Heading>
+        <Text py="2" fontSize="md" textTransform="uppercase">
+          {breed}
+        </Text>
+        <Text fontSize="xs" textTransform="uppercase">
+          {age} years old
+        </Text>
+        <Text fontSize="xs" textTransform="uppercase">
+          Located in {zip_code}
+        </Text>
       </CardBody>
     </Card>
-  )
-}
+  );
+};
 
 export default Dog;
