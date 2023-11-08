@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import {
-  Center,
   Flex,
   SimpleGrid,
   Box,
@@ -16,8 +15,8 @@ import Card from './Card/index.jsx';
 import Filter from './Filter/index.jsx';
 
 const Dashboard = () => {
-  const { user, logout } = useAuth();
-  const { allBreeds, setAllBreeds, filteredBreeds, setFilteredBreeds } = useFilter();
+  const { logout } = useAuth();
+  const { setAllBreeds, filteredBreeds } = useFilter();
   const navigate = useNavigate();
 
   const [dogs, setDogs] = useState([]);
@@ -26,7 +25,8 @@ const Dashboard = () => {
   const [prev, setPrev] = useState('');
   const [next, setNext] = useState('');
   const [pageNum, setPageNum] = useState(1);
-  const [size, setSize] = useState(25);
+
+  const size = 25;
 
   const handleLogout = (e) => {
     e.preventDefault();
@@ -60,7 +60,6 @@ const Dashboard = () => {
       "Access-Control-Allow-Origin": "*",
       url: `https://frontend-take-home-service.fetch.com${pageQuery}`,
       params: {
-        size: size,
         breeds: filteredBreeds
       }
     })
@@ -100,7 +99,7 @@ const Dashboard = () => {
       .catch((err) => {
         console.log(err);
       })
-  }, []);
+  }, [setAllBreeds]);
 
   return (
     <Box p={10}>
