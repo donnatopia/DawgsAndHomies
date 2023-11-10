@@ -7,14 +7,21 @@ const path = require('path');
 const morgan = require('morgan');
 const cors = require('cors');
 
-server.use(morgan('dev'));
-server.use(cors());
-server.use(express.json());
+server.use(
+  morgan('dev'),
+  cors({
+    origin: true,
+    credentials: true,
+  }),
+  express.json(),
+);
 
 // serving static files and generated assets in ../client/dist
 server.use(express.static(path.join(__dirname, '../client/dist')));
 
 // add routes
+const router = require('./router');
+server.use('/api', router);
 
 // catch any remaining requests and reserving static assets
 // this is pages will sustain through refreshes
