@@ -9,12 +9,18 @@ export function useFilter() {
 export function FilterProvider({ children }) {
   const [allBreeds, setAllBreeds] = useState(new Set());
   const [filteredBreeds, setFilteredBreeds] = useState([]);
+  const [curr, setCurr] = useState(0);
+  const [sortDesc, setSortDesc] = useState(false);
 
   const value = {
     allBreeds,
     setAllBreeds,
     filteredBreeds,
     setFilteredBreeds,
+    sortDesc,
+    setSortDesc,
+    curr,
+    setCurr,
   };
 
   return (

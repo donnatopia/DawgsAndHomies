@@ -30,7 +30,7 @@ const titleCase = (word) =>
 
 // FilterBreed Component
 const FilterBreed = ({ isOpen, onClose }) => {
-  const { filteredBreeds, allBreeds, setFilteredBreeds } = useFilter();
+  const { filteredBreeds, allBreeds, setFilteredBreeds, setCurr } = useFilter();
   const [inputBreed, setInputBreed] = useState('');
   const [message, setMessage] = useState('');
 
@@ -45,6 +45,7 @@ const FilterBreed = ({ isOpen, onClose }) => {
     } else if (allBreeds.has(currBreed)) {
       setFilteredBreeds([...filteredBreeds, currBreed]);
       setMessage('');
+      setCurr(0);
     } else {
       setMessage(`No Such Breed Named "${currBreed}"`);
     }
@@ -58,6 +59,7 @@ const FilterBreed = ({ isOpen, onClose }) => {
     const updatedFilter = filteredBreeds.slice();
     updatedFilter.splice(deleteIndex, 1);
     setFilteredBreeds(updatedFilter);
+    setCurr(0);
 
     setMessage('');
   };

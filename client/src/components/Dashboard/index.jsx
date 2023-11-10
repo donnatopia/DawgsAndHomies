@@ -6,18 +6,15 @@ import { useFilter } from '../../contexts/FilterContext.jsx';
 import { useNavigate } from 'react-router-dom';
 import Card from './Card/index.jsx';
 import Filter from './Filter/index.jsx';
+import Sort from './Sort/index.jsx';
 
 const Dashboard = () => {
   const { logout } = useAuth();
-  const { setAllBreeds, filteredBreeds } = useFilter();
+  const { setAllBreeds, filteredBreeds, sortDesc, curr, setCurr } = useFilter();
   const navigate = useNavigate();
 
   const [dogs, setDogs] = useState([]);
   const [totalResults, setTotalResults] = useState(0);
-  const [pageQuery, setPageQuery] = useState('/dogs/search');
-  const [prev, setPrev] = useState('');
-  const [next, setNext] = useState('');
-  const [pageNum, setPageNum] = useState(1);
 
   const size = 25;
 
@@ -36,37 +33,34 @@ const Dashboard = () => {
 
   const handlePrev = (e) => {
     e.preventDefault();
-    setPageNum(pageNum - 1);
-    setPageQuery(prev);
+    setCurr(curr - size);
   };
 
   const handleNext = (e) => {
     e.preventDefault();
-    setPageNum(pageNum + 1);
-    setPageQuery(next);
+    setCurr(curr + size);
   };
 
   useEffect(() => {
+    const sort = sortDesc ? 'breed:desc' : 'breed:asc';
+
     axios({
       method: 'get',
       withCredentials: true,
-      'Access-Control-Allow-Origin': '*',
-      url: `https://frontend-take-home-service.fetch.com${pageQuery}`,
+      url: 'https://frontend-take-home-service.fetch.com/dogs/search',
       params: {
+        sort: sort,
+        from: curr,
         breeds: filteredBreeds,
       },
     })
       .then(({ data }) => {
-        const { resultIds, total, prev, next } = data;
-
+        const { resultIds, total } = data;
         setTotalResults(total);
-        setPrev(prev);
-        setNext(next);
 
         return axios({
           method: 'post',
           withCredentials: true,
-          'Access-Control-Allow-Origin': '*',
           url: 'https://frontend-take-home-service.fetch.com/dogs/',
           data: resultIds,
         });
@@ -77,13 +71,12 @@ const Dashboard = () => {
       .catch((err) => {
         console.log('Error getting dogs', err);
       });
-  }, [pageQuery, filteredBreeds]);
+  }, [curr, filteredBreeds, sortDesc]);
 
   useEffect(() => {
     axios({
       method: 'get',
       withCredentials: true,
-      'Access-Control-Allow-Origin': '*',
       url: 'https://frontend-take-home-service.fetch.com/dogs/breeds',
     })
       .then(({ data }) => {
@@ -100,7 +93,10 @@ const Dashboard = () => {
         <Heading>Fetch</Heading>
         <Button onClick={handleLogout}>Log Out</Button>
       </Flex>
-      <Filter />
+      <Flex py={5} gap={2} justify="space-between">
+        <Filter />
+        <Sort />
+      </Flex>
       <SimpleGrid minChildWidth="250px" columns={5} spacing={4}>
         {dogs.map((dog) => (
           <Box key={dog.id}>
@@ -109,14 +105,17 @@ const Dashboard = () => {
         ))}
       </SimpleGrid>
       <Flex py={5} justify="space-between">
-        <Button onClick={handlePrev} isDisabled={prev ? false : true}>
+        <Button onClick={handlePrev} isDisabled={curr === 0 ? true : null}>
           Previous
         </Button>
         <Text>
-          Displaying {pageNum * size - size + 1}-
-          {Math.min(pageNum * size, totalResults)} out of {totalResults} results
+          Displaying {curr + 1}-{Math.min(curr + size, totalResults)} out of{' '}
+          {totalResults} results
         </Text>
-        <Button onClick={handleNext} isDisabled={next ? false : true}>
+        <Button
+          onClick={handleNext}
+          isDisabled={curr + size > totalResults ? true : null}
+        >
           Next
         </Button>
       </Flex>

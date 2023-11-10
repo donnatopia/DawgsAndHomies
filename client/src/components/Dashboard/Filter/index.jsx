@@ -9,7 +9,7 @@ const Filter = () => {
 
   return (
     <>
-      <Flex py={5} align="center" justify="center" gap={3}>
+      <Flex align="center" justify="center" gap={3}>
         <Text>Displaying Friends from </Text>
         <Button onClick={onOpen}>
           {filteredBreeds.length === 0 ? 120 : filteredBreeds.length} Breed
