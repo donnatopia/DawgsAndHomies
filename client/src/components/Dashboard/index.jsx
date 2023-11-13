@@ -7,6 +7,7 @@ import { useNavigate } from 'react-router-dom';
 import Card from './Card/index.jsx';
 import Filter from './Filter/index.jsx';
 import Sort from './Sort/index.jsx';
+import Match from './Match/index.jsx';
 
 const Dashboard = () => {
   const { logout } = useAuth();
@@ -97,6 +98,7 @@ const Dashboard = () => {
         <Filter />
         <Sort />
       </Flex>
+      <Match />
       <SimpleGrid minChildWidth="250px" columns={5} spacing={4}>
         {dogs.map((dog) => (
           <Box key={dog.id}>

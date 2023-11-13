@@ -12,7 +12,7 @@ import {
 import { GoHeart, GoHeartFill } from 'react-icons/go';
 import { useMatch } from '../../../contexts/MatchContext.jsx';
 
-const Dog = ({ dog }) => {
+const Dog = ({ dog, likeDisabled }) => {
   const { id, img, name, age, zip_code, breed } = dog;
   const { matchedDogs, setMatchedDogs } = useMatch();
   const [isLiked, setIsLiked] = useState(id in matchedDogs);
@@ -31,6 +31,15 @@ const Dog = ({ dog }) => {
 
     setIsLiked(!isLiked);
   };
+
+  const LikeButton = () => (
+    <Icon
+      as={isLiked ? GoHeartFill : GoHeart}
+      boxSize={6}
+      onClick={toggleLike}
+      _hover={{ cursor: 'pointer' }}
+    />
+  );
 
   return (
     <Card>
@@ -56,12 +65,7 @@ const Dog = ({ dog }) => {
               Located in {zip_code}
             </Text>
           </Box>
-          <Icon
-            as={isLiked ? GoHeartFill : GoHeart}
-            boxSize={6}
-            onClick={toggleLike}
-            _hover={{ cursor: 'pointer' }}
-          />
+          {likeDisabled ? null : <LikeButton />}
         </Flex>
       </CardBody>
     </Card>
