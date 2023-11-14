@@ -5,6 +5,7 @@ import { BiSolidDog } from 'react-icons/bi';
 import { MdBubbleChart } from 'react-icons/md';
 import FilterOption from './FilterOption.jsx';
 import BreedModal from './BreedModal.jsx';
+import AgeModal from './AgeModal.jsx';
 
 const Filter = () => {
   const { filteredBreeds } = useFilter();
@@ -12,6 +13,12 @@ const Filter = () => {
     isOpen: isBreedOpen,
     onOpen: onBreedOpen,
     onClose: onBreedClose,
+  } = useDisclosure();
+
+  const {
+    isOpen: isAgeOpen,
+    onOpen: onAgeOpen,
+    onClose: onAgeClose,
   } = useDisclosure();
 
   return (
@@ -24,13 +31,14 @@ const Filter = () => {
           } Breed${filteredBreeds.length === 1 ? '' : 's'}`}
           onClick={onBreedOpen}
         />
-        <FilterOption icon={MdBubbleChart} text="All Ages" />
+        <FilterOption
+          icon={MdBubbleChart}
+          text="All Ages"
+          onClick={onAgeOpen}
+        />
       </Flex>
-      <BreedModal
-        isOpen={isBreedOpen}
-        onOpen={onBreedOpen}
-        onClose={onBreedClose}
-      />
+      <BreedModal isOpen={isBreedOpen} onClose={onBreedClose} />
+      <AgeModal isOpen={isAgeOpen} onClose={onAgeClose} />
     </>
   );
 };
