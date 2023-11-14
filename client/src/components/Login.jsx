@@ -2,8 +2,12 @@ import React, { useState } from 'react';
 import { useAuth } from '../contexts/AuthContext.jsx';
 import { useNavigate } from 'react-router-dom';
 import {
-  Container,
+  Box,
+  Card,
+  CardHeader,
+  CardBody,
   Heading,
+  Image,
   FormLabel,
   FormControl,
   Input,
@@ -31,30 +35,43 @@ const Login = () => {
   };
 
   return (
-    <Container>
-      <Heading py={5}>Fetch Log In</Heading>
-      <FormControl>
-        <FormControl name="name" pb={5}>
-          <FormLabel>Name</FormLabel>
-          <Input
-            type="text"
-            value={name}
-            onChange={(e) => setName(e.target.value)}
+    <Box h="100vh" w="100vw" p={10} bg="brand.babypink" align="center">
+      <Card maxW="lg">
+        <CardHeader align="center">
+          <Heading size="md" textTransform="uppercase">
+            Welcome to Dawgs & Homies
+          </Heading>
+          <Image
+            src="https://raw.githubusercontent.com/donnatopia/fetch/5878715dfafcf42c18309dd7abaec6369bcf159b/client/dist/logo.png"
+            alt="Dawgs & Homies Logo"
+            boxSize="150px"
           />
-        </FormControl>
-        <FormControl name="email" pb={5}>
-          <FormLabel>Email</FormLabel>
-          <Input
-            type="email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-          />
-        </FormControl>
-        <Button type="submit" onClick={handleLogin}>
-          Log In
-        </Button>
-      </FormControl>
-    </Container>
+        </CardHeader>
+        <CardBody>
+          <FormControl>
+            <FormControl name="name" pb={5}>
+              <FormLabel textTransform="uppercase">Name</FormLabel>
+              <Input
+                type="text"
+                value={name}
+                onChange={(e) => setName(e.target.value)}
+              />
+            </FormControl>
+            <FormControl name="email" pb={5}>
+              <FormLabel textTransform="uppercase">Email</FormLabel>
+              <Input
+                type="email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+              />
+            </FormControl>
+            <Button type="submit" onClick={handleLogin} colorScheme="yellow">
+              Log In
+            </Button>
+          </FormControl>
+        </CardBody>
+      </Card>
+    </Box>
   );
 };
 

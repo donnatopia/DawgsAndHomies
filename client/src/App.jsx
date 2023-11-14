@@ -1,5 +1,5 @@
 import React from 'react';
-import { ChakraProvider } from '@chakra-ui/react';
+import { ChakraProvider, extendTheme } from '@chakra-ui/react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { AuthProvider } from './contexts/AuthContext.jsx';
 import { FilterProvider } from './contexts/FilterContext.jsx';
@@ -8,9 +8,18 @@ import Login from './components/Login.jsx';
 import ProtectedRoute from './components/ProtectedRoute.jsx';
 import Dashboard from './components/Dashboard/index.jsx';
 
+const theme = extendTheme({
+  colors: {
+    brand: {
+      darkpink: '#E66262',
+      babypink: '#F4A9A9',
+    },
+  },
+});
+
 const App = () => {
   return (
-    <ChakraProvider>
+    <ChakraProvider theme={theme}>
       <AuthProvider>
         <FilterProvider>
           <MatchProvider>
