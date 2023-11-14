@@ -10,7 +10,7 @@ export function FilterProvider({ children }) {
   const [allBreeds, setAllBreeds] = useState(new Set());
   const [filteredBreeds, setFilteredBreeds] = useState([]);
   const [minAge, setMinAge] = useState(0);
-  const [maxAge, setMaxAge] = useState(20);
+  const [maxAge, setMaxAge] = useState(14);
   const [curr, setCurr] = useState(0);
   const [sortDesc, setSortDesc] = useState(false);
   const [size, setSize] = useState(25);

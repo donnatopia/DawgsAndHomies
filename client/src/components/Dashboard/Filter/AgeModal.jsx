@@ -33,7 +33,7 @@ const AgeModal = ({ isOpen, onClose }) => {
     <Modal isOpen={isOpen} onClose={onClose} size="xl">
       <ModalOverlay />
       <ModalContent>
-        <ModalHeader>Select an Age Range</ModalHeader>
+        <ModalHeader>Filter by Age</ModalHeader>
         <ModalCloseButton />
         <ModalBody>
           <Flex pt={4} pb={10} gap={5}>
@@ -57,7 +57,7 @@ const AgeModal = ({ isOpen, onClose }) => {
           <RangeSlider
             aria-label={['minAge', 'maxAge']}
             defaultValue={[minAge, maxAge]}
-            max={20}
+            max={14}
             onChange={handleChange}
             colorScheme="pink"
           >
@@ -73,10 +73,13 @@ const AgeModal = ({ isOpen, onClose }) => {
           </RangeSlider>
           <Flex justify="space-between" mt={2}>
             <Text>0</Text>
-            <Text>5</Text>
+            <Text>2</Text>
+            <Text>4</Text>
+            <Text>6</Text>
+            <Text>8</Text>
             <Text>10</Text>
-            <Text>15</Text>
-            <Text>20</Text>
+            <Text>12</Text>
+            <Text>14</Text>
           </Flex>
         </ModalBody>
         <ModalFooter />
