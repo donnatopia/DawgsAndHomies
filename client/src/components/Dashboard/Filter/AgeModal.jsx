@@ -14,7 +14,10 @@ import {
   Flex,
   Text,
   ModalFooter,
+  Icon,
+  Heading,
 } from '@chakra-ui/react';
+import { TbChartBubbleFilled } from 'react-icons/tb';
 import { useFilter } from '../../../contexts/FilterContext.jsx';
 
 const AgeModal = ({ isOpen, onClose }) => {
@@ -33,11 +36,30 @@ const AgeModal = ({ isOpen, onClose }) => {
         <ModalHeader>Select an Age Range</ModalHeader>
         <ModalCloseButton />
         <ModalBody>
+          <Flex pt={4} pb={10} gap={5}>
+            <Icon as={TbChartBubbleFilled} boxSize={6} />
+            <Flex direction="column" gap={2}>
+              <Heading textTransform="uppercase" size="sm">
+                Age Range
+              </Heading>
+              {minAge === maxAge ? (
+                <Text>
+                  <Text as="b">{minAge}</Text> years old
+                </Text>
+              ) : (
+                <Text>
+                  Show Dogs Who Are <Text as="b">{minAge}</Text> to{' '}
+                  <Text as="b">{maxAge}</Text> years old
+                </Text>
+              )}
+            </Flex>
+          </Flex>
           <RangeSlider
             aria-label={['minAge', 'maxAge']}
             defaultValue={[minAge, maxAge]}
             max={20}
             onChange={handleChange}
+            colorScheme="pink"
           >
             <RangeSliderTrack>
               <RangeSliderFilledTrack />
@@ -55,18 +77,6 @@ const AgeModal = ({ isOpen, onClose }) => {
             <Text>10</Text>
             <Text>15</Text>
             <Text>20</Text>
-          </Flex>
-          <Flex direction="column" align="center" gap={3}>
-            <Text pt={10}>Only Show Dogs Who Are</Text>
-            {minAge === maxAge ? (
-              <Text fontSize="2xl" as="b">
-                {minAge} years old
-              </Text>
-            ) : (
-              <Text fontSize="2xl" as="b">
-                {minAge} to {maxAge} years old
-              </Text>
-            )}
           </Flex>
         </ModalBody>
         <ModalFooter />
