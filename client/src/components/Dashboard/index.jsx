@@ -19,7 +19,15 @@ import Match from './Match/index.jsx';
 
 const Dashboard = () => {
   const { logout } = useAuth();
-  const { setAllBreeds, filteredBreeds, sortDesc, curr, setCurr } = useFilter();
+  const {
+    setAllBreeds,
+    filteredBreeds,
+    sortDesc,
+    curr,
+    setCurr,
+    minAge,
+    maxAge,
+  } = useFilter();
   const navigate = useNavigate();
 
   const [dogs, setDogs] = useState([]);
@@ -61,6 +69,8 @@ const Dashboard = () => {
         sort: sort,
         from: curr,
         breeds: filteredBreeds,
+        ageMin: minAge,
+        ageMax: maxAge,
       },
     })
       .then(({ data }) => {
@@ -80,7 +90,7 @@ const Dashboard = () => {
       .catch((err) => {
         console.log('Error getting dogs', err);
       });
-  }, [curr, filteredBreeds, sortDesc]);
+  }, [minAge, maxAge, curr, filteredBreeds, sortDesc]);
 
   useEffect(() => {
     axios({

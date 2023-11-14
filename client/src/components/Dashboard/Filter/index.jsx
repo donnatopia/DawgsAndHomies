@@ -8,7 +8,7 @@ import BreedModal from './BreedModal.jsx';
 import AgeModal from './AgeModal.jsx';
 
 const Filter = () => {
-  const { filteredBreeds } = useFilter();
+  const { filteredBreeds, minAge, maxAge } = useFilter();
   const {
     isOpen: isBreedOpen,
     onOpen: onBreedOpen,
@@ -26,6 +26,7 @@ const Filter = () => {
       <Flex align="center" justify="center" gap={3} borderRadius="10%">
         <FilterOption
           icon={BiSolidDog}
+          title="Breed"
           text={`${
             filteredBreeds.length === 0 ? 120 : filteredBreeds.length
           } Breed${filteredBreeds.length === 1 ? '' : 's'}`}
@@ -33,7 +34,8 @@ const Filter = () => {
         />
         <FilterOption
           icon={MdBubbleChart}
-          text="All Ages"
+          title="Age"
+          text={minAge != maxAge ? `${minAge}-${maxAge} yrs` : `${minAge} yrs`}
           onClick={onAgeOpen}
         />
       </Flex>

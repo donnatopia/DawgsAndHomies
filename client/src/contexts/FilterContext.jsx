@@ -9,6 +9,8 @@ export function useFilter() {
 export function FilterProvider({ children }) {
   const [allBreeds, setAllBreeds] = useState(new Set());
   const [filteredBreeds, setFilteredBreeds] = useState([]);
+  const [minAge, setMinAge] = useState(0);
+  const [maxAge, setMaxAge] = useState(20);
   const [curr, setCurr] = useState(0);
   const [sortDesc, setSortDesc] = useState(false);
 
@@ -21,6 +23,10 @@ export function FilterProvider({ children }) {
     setSortDesc,
     curr,
     setCurr,
+    minAge,
+    setMinAge,
+    maxAge,
+    setMaxAge,
   };
 
   return (
