@@ -76,7 +76,7 @@ const Match = () => {
     <>
       <Flex justify="center" pb={7}>
         <Button
-          colorScheme="pink"
+          colorScheme="yellow"
           rightIcon={<GoHeartFill />}
           onClick={requestMatch}
         >

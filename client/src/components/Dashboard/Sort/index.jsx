@@ -16,7 +16,7 @@ const Sort = () => {
     <Button
       leftIcon={sortDesc ? <BsSortDown /> : <BsSortDownAlt />}
       onClick={handleClick}
-      colorScheme="teal"
+      colorScheme="pink"
     ></Button>
   );
 };

@@ -13,6 +13,19 @@ const theme = extendTheme({
     brand: {
       darkpink: '#E66262',
       babypink: '#F4A9A9',
+      lightpink: '#FFF1F1',
+    },
+  },
+  components: {
+    Heading: {
+      baseStyle: {
+        color: '#191818',
+      },
+    },
+    Text: {
+      baseStyle: {
+        color: '#3D3B3B',
+      },
     },
   },
 });

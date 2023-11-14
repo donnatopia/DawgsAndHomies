@@ -1,5 +1,13 @@
 import React, { useState, useEffect } from 'react';
-import { Flex, SimpleGrid, Box, Heading, Button, Text } from '@chakra-ui/react';
+import {
+  Flex,
+  SimpleGrid,
+  Box,
+  Heading,
+  Button,
+  Text,
+  Image,
+} from '@chakra-ui/react';
 import axios from 'axios';
 import { useAuth } from '../../contexts/AuthContext.jsx';
 import { useFilter } from '../../contexts/FilterContext.jsx';
@@ -89,12 +97,23 @@ const Dashboard = () => {
   }, [setAllBreeds]);
 
   return (
-    <Box p={10}>
-      <Flex justify="space-between" p={2}>
-        <Heading>Fetch</Heading>
-        <Button onClick={handleLogout}>Log Out</Button>
+    <Box p={10} bg="brand.lightpink">
+      <Flex justify="space-between" align="center" p={2}>
+        <Flex align="center" gap={5}>
+          <Image
+            src="https://raw.githubusercontent.com/donnatopia/fetch/5878715dfafcf42c18309dd7abaec6369bcf159b/client/dist/logo.png"
+            alt="Dawgs & Homies Logo"
+            boxSize="80px"
+          />
+          <Heading textTransform="uppercase" size="md">
+            Dawgs & Homies
+          </Heading>
+        </Flex>
+        <Button onClick={handleLogout} colorScheme="yellow">
+          Log Out
+        </Button>
       </Flex>
-      <Flex py={5} gap={2} justify="space-between">
+      <Flex py={5} gap={2} align="center" justify="space-between">
         <Filter />
         <Sort />
       </Flex>
