@@ -14,7 +14,7 @@ import { useFilter } from '../../contexts/FilterContext.jsx';
 import { useNavigate } from 'react-router-dom';
 import Card from './Card/index.jsx';
 import Filter from './Filter/index.jsx';
-import Sort from './Sort/index.jsx';
+import Display from './Display/index.jsx';
 import Match from './Match/index.jsx';
 
 const Dashboard = () => {
@@ -125,7 +125,7 @@ const Dashboard = () => {
       </Flex>
       <Flex py={5} gap={2} align="center" justify="space-between">
         <Filter />
-        <Sort />
+        <Display />
       </Flex>
       <Match />
       <SimpleGrid minChildWidth="250px" columns={5} spacing={4}>
