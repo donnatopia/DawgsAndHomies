@@ -13,8 +13,11 @@ import {
   Wrap,
   WrapItem,
   Text,
+  Icon,
+  Heading,
 } from '@chakra-ui/react';
 import { MdCancel } from 'react-icons/md';
+import { BiSolidDog } from 'react-icons/bi';
 import { useFilter } from '../../../contexts/FilterContext.jsx';
 
 // Helper Function
@@ -68,9 +71,18 @@ const BreedModal = ({ isOpen, onClose }) => {
     <Modal isOpen={isOpen} onClose={onClose} size="xl">
       <ModalOverlay />
       <ModalContent>
-        <ModalHeader>Which Dog Breeds?</ModalHeader>
+        <ModalHeader>Filter By Breed</ModalHeader>
         <ModalCloseButton />
         <ModalBody>
+          <Flex pt={4} pb={10} gap={5}>
+            <Icon as={BiSolidDog} boxSize={6} />
+            <Flex direction="column" gap={2}>
+              <Heading textTransform="uppercase" size="sm">
+                Breeds
+              </Heading>
+              <Text>Search For Your Favorite Breeds</Text>
+            </Flex>
+          </Flex>
           <Flex>
             <Input
               value={inputBreed}
@@ -87,8 +99,8 @@ const BreedModal = ({ isOpen, onClose }) => {
             {filteredBreeds.map((breed, i) => (
               <WrapItem key={`filtered-${i}`}>
                 <Button
-                  varient="outline"
-                  color="teal"
+                  variant="outline"
+                  colorScheme="pink"
                   onClick={(e) => deleteBreed(e, breed)}
                   rightIcon={<MdCancel />}
                 >
