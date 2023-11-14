@@ -27,13 +27,12 @@ const Dashboard = () => {
     setCurr,
     minAge,
     maxAge,
+    size,
   } = useFilter();
   const navigate = useNavigate();
 
   const [dogs, setDogs] = useState([]);
   const [totalResults, setTotalResults] = useState(0);
-
-  const size = 25;
 
   const handleLogout = (e) => {
     e.preventDefault();
@@ -67,6 +66,7 @@ const Dashboard = () => {
       url: 'https://frontend-take-home-service.fetch.com/dogs/search',
       params: {
         sort: sort,
+        size: size,
         from: curr,
         breeds: filteredBreeds,
         ageMin: minAge,
@@ -90,7 +90,7 @@ const Dashboard = () => {
       .catch((err) => {
         console.log('Error getting dogs', err);
       });
-  }, [minAge, maxAge, curr, filteredBreeds, sortDesc]);
+  }, [size, minAge, maxAge, curr, filteredBreeds, sortDesc]);
 
   useEffect(() => {
     axios({

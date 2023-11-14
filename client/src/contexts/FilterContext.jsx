@@ -13,6 +13,7 @@ export function FilterProvider({ children }) {
   const [maxAge, setMaxAge] = useState(20);
   const [curr, setCurr] = useState(0);
   const [sortDesc, setSortDesc] = useState(false);
+  const [size, setSize] = useState(25);
 
   const value = {
     allBreeds,
@@ -27,6 +28,8 @@ export function FilterProvider({ children }) {
     setMinAge,
     maxAge,
     setMaxAge,
+    size,
+    setSize,
   };
 
   return (
