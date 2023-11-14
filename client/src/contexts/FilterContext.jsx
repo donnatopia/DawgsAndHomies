@@ -14,6 +14,7 @@ export function FilterProvider({ children }) {
   const [curr, setCurr] = useState(0);
   const [sortDesc, setSortDesc] = useState(false);
   const [size, setSize] = useState(25);
+  const [zipCodes, setZipCodes] = useState([]);
 
   const value = {
     allBreeds,
@@ -30,6 +31,8 @@ export function FilterProvider({ children }) {
     setMaxAge,
     size,
     setSize,
+    zipCodes,
+    setZipCodes,
   };
 
   return (

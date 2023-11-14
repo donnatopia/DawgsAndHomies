@@ -28,6 +28,7 @@ const Dashboard = () => {
     minAge,
     maxAge,
     size,
+    zipCodes,
   } = useFilter();
   const navigate = useNavigate();
 
@@ -71,6 +72,7 @@ const Dashboard = () => {
         breeds: filteredBreeds,
         ageMin: minAge,
         ageMax: maxAge,
+        zipCodes: zipCodes,
       },
     })
       .then(({ data }) => {
@@ -90,7 +92,7 @@ const Dashboard = () => {
       .catch((err) => {
         console.log('Error getting dogs', err);
       });
-  }, [size, minAge, maxAge, curr, filteredBreeds, sortDesc]);
+  }, [zipCodes, size, minAge, maxAge, curr, filteredBreeds, sortDesc]);
 
   useEffect(() => {
     axios({
