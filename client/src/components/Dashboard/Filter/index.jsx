@@ -1,13 +1,18 @@
 import React from 'react';
-import { Flex, Text, useDisclosure } from '@chakra-ui/react';
+import { Flex, useDisclosure } from '@chakra-ui/react';
 import { useFilter } from '../../../contexts/FilterContext.jsx';
 import { BiSolidDog } from 'react-icons/bi';
+import { MdBubbleChart } from 'react-icons/md';
 import FilterOption from './FilterOption.jsx';
-import FilterBreed from './FilterBreed.jsx';
+import BreedModal from './BreedModal.jsx';
 
 const Filter = () => {
   const { filteredBreeds } = useFilter();
-  const { isOpen, onOpen, onClose } = useDisclosure();
+  const {
+    isOpen: isBreedOpen,
+    onOpen: onBreedOpen,
+    onClose: onBreedClose,
+  } = useDisclosure();
 
   return (
     <>
@@ -16,12 +21,16 @@ const Filter = () => {
           icon={BiSolidDog}
           text={`${
             filteredBreeds.length === 0 ? 120 : filteredBreeds.length
-          } Breed${filteredBreeds.length === 1 ? null : 's'}`}
-          onClick={onOpen}
+          } Breed${filteredBreeds.length === 1 ? '' : 's'}`}
+          onClick={onBreedOpen}
         />
-        <Text fontSize="1.75em">|</Text>
+        <FilterOption icon={MdBubbleChart} text="All Ages" />
       </Flex>
-      <FilterBreed isOpen={isOpen} onOpen={onOpen} onClose={onClose} />
+      <BreedModal
+        isOpen={isBreedOpen}
+        onOpen={onBreedOpen}
+        onClose={onBreedClose}
+      />
     </>
   );
 };

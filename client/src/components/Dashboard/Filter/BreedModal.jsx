@@ -28,8 +28,8 @@ const titleCase = (word) =>
     })
     .join(' ');
 
-// FilterBreed Component
-const FilterBreed = ({ isOpen, onClose }) => {
+// BreedModal Component
+const BreedModal = ({ isOpen, onClose }) => {
   const { filteredBreeds, allBreeds, setFilteredBreeds, setCurr } = useFilter();
   const [inputBreed, setInputBreed] = useState('');
   const [message, setMessage] = useState('');
@@ -104,4 +104,4 @@ const FilterBreed = ({ isOpen, onClose }) => {
   );
 };
 
-export default FilterBreed;
+export default BreedModal;
