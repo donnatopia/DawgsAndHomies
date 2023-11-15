@@ -61,3 +61,4 @@ A web application designed for dog enthusiasts to explore and filter through an 
     ```
     npm run lint
     ```
+7. Open `localhost:3000` (or with your respective local url and server port)
