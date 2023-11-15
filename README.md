@@ -106,3 +106,4 @@ Logo was created with Canvas by Donna Wong.
     ```
     npm run lint
     ```
+4. Open `localhost:3000` in your browser
