@@ -22,7 +22,7 @@ import { BiSortAlt2 } from 'react-icons/bi';
 import { MdNumbers } from 'react-icons/md';
 import { useFilter } from '../../../contexts/FilterContext.jsx';
 
-const DisplayModal = ({ isOpen, onClose }) => {
+const SettingsModal = ({ isOpen, onClose }) => {
   const { sortDesc, setSortDesc, setCurr, size, setSize } = useFilter();
 
   const switchToAZ = (e) => {
@@ -113,4 +113,4 @@ const DisplayModal = ({ isOpen, onClose }) => {
   );
 };
 
-export default DisplayModal;
+export default SettingsModal;

@@ -1,24 +1,13 @@
 import React, { useState, useEffect } from 'react';
-import {
-  Flex,
-  SimpleGrid,
-  Box,
-  Heading,
-  Button,
-  Text,
-  Image,
-} from '@chakra-ui/react';
+import { Flex, SimpleGrid, Box, Button, Text } from '@chakra-ui/react';
 import axios from 'axios';
-import { useAuth } from '../../contexts/AuthContext.jsx';
 import { useFilter } from '../../contexts/FilterContext.jsx';
-import { useNavigate } from 'react-router-dom';
 import Card from './Card/index.jsx';
 import Filter from './Filter/index.jsx';
-import Display from './Display/index.jsx';
+import Header from './Header/index.jsx';
 import Match from './Match/index.jsx';
 
 const Dashboard = () => {
-  const { logout } = useAuth();
   const {
     setAllBreeds,
     filteredBreeds,
@@ -30,23 +19,9 @@ const Dashboard = () => {
     size,
     zipCodes,
   } = useFilter();
-  const navigate = useNavigate();
 
   const [dogs, setDogs] = useState([]);
   const [totalResults, setTotalResults] = useState(0);
-
-  const handleLogout = (e) => {
-    e.preventDefault();
-
-    logout()
-      .then(() => {
-        console.log('Success Logging Out');
-        navigate('/');
-      })
-      .catch((err) => {
-        console.log('Error Logging Out', err);
-      });
-  };
 
   const handlePrev = (e) => {
     e.preventDefault();
@@ -109,26 +84,11 @@ const Dashboard = () => {
   }, [setAllBreeds]);
 
   return (
-    <Box p={10} bg="brand.lightpink">
-      <Flex justify="space-between" align="center" p={2}>
-        <Flex align="center" gap={5}>
-          <Image
-            src="https://raw.githubusercontent.com/donnatopia/fetch/5878715dfafcf42c18309dd7abaec6369bcf159b/client/dist/logo.png"
-            alt="Dawgs & Homies Logo"
-            boxSize="80px"
-          />
-          <Heading textTransform="uppercase" size="md">
-            Dawgs & Homies
-          </Heading>
-        </Flex>
-        <Button onClick={handleLogout} colorScheme="yellow">
-          Log Out
-        </Button>
-      </Flex>
-      <Flex py={5} gap={2} align="center" justify="space-between">
+    <Box p={10} w="100vw" h="100vh" bg="brand.lightpink">
+      <Header />
+      <Box py={5} justify="center">
         <Filter />
-        <Display />
-      </Flex>
+      </Box>
       <Match />
       <SimpleGrid minChildWidth="250px" columns={5} spacing={4}>
         {dogs.map((dog) => (
