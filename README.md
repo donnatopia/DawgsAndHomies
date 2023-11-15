@@ -38,3 +38,26 @@ A web application designed for dog enthusiasts to explore and filter through an 
   <img src="https://img.shields.io/badge/Figma-F24E1E?style=for-the-badge&logo=figma&logoColor=white" />
   <img src="https://img.shields.io/badge/Canva-%2300C4CC.svg?&style=for-the-badge&logo=Canva&logoColor=white" />
 </div>
+
+# Getting Started
+1. Clone the Project to Your Local Environment
+    ```
+    git clone https://github.com/donnatopia/DawgsAndHomies.git
+    ```
+2. Install All Local Dependencies
+    ```
+    npm install
+    ```
+3. Create a `.env` file using the `example.env` file as a template
+4. Open a new terminal and compile webpack
+    ```
+    npm run client-dev
+    ```
+5. Open another terminal and run the server
+    ```
+    npm run server-dev
+    ```
+6. Run ESLint for Code Consistency
+    ```
+    npm run lint
+    ```
