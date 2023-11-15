@@ -84,7 +84,7 @@ const Dashboard = () => {
   }, [setAllBreeds]);
 
   return (
-    <Box p={10} w="100vw" h="100vh" bg="brand.lightpink">
+    <Box p={10} w="100%" h="100%" bg="brand.lightpink">
       <Header />
       <Box py={5} justify="center">
         <Filter />
