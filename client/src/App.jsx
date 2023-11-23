@@ -1,34 +1,13 @@
 import React from 'react';
-import { ChakraProvider, extendTheme } from '@chakra-ui/react';
+import { ChakraProvider } from '@chakra-ui/react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import theme from './themes/index.js';
 import { AuthProvider } from './contexts/AuthContext.jsx';
 import { FilterProvider } from './contexts/FilterContext.jsx';
 import { MatchProvider } from './contexts/MatchContext.jsx';
 import Login from './components/Login.jsx';
 import ProtectedRoute from './components/ProtectedRoute.jsx';
 import Dashboard from './components/Dashboard/index.jsx';
-
-const theme = extendTheme({
-  colors: {
-    brand: {
-      darkpink: '#E66262',
-      babypink: '#F4A9A9',
-      lightpink: '#FFF1F1',
-    },
-  },
-  components: {
-    Heading: {
-      baseStyle: {
-        color: '#191818',
-      },
-    },
-    Text: {
-      baseStyle: {
-        color: '#3D3B3B',
-      },
-    },
-  },
-});
 
 const App = () => {
   return (
